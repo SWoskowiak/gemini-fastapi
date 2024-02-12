@@ -9,7 +9,7 @@ This is just a POC to play around w/ Python and AI and to explore HTMX and how u
 ## 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/SWoskowiak/gemini-fastapi.git
 ```
 
 ## 2. Install Docker
