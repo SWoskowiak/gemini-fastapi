@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "geminitest"
+version = "0.1.0"
+description = "Simple test of integrating with google gemini AI and usage of fastAPI"
+authors = ["Stefan Woskowiak <swoskowiak@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.109.0"
+uvicorn = {extras = ["standard"], version = "^0.27.0"}
+google-generativeai = "^0.3.2"
+python-dotenv = "^1.0.1"
+python-multipart = "^0.0.6"
+pytest = "^7.4.4"
+sqlalchemy = "^2.0.25"
+alembic = "^1.13.1"
+psycopg2-binary = "^2.9.9"
+asyncpg = "^0.29.0"
+google-cloud-storage = "^2.14.0"
+pillow = "^10.2.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+httpx = "^0.26.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

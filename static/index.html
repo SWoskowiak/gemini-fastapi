@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Upload to Gemini Test</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+        crossorigin="anonymous"></script>
+    <script>
+        // Just some simple JS to preview the image before uploading
+        function previewFile() {
+            const preview = document.querySelector("img");
+            const file = document.querySelector("input[type=file]").files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener(
+                "load",
+                () => {
+                    // convert image file to base64 string
+                    preview.src = reader.result;
+                    preview.style.display = "block";
+                },
+                false,
+            );
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+    <style>
+        #imgPreview {
+            display: none;
+        }
+
+        #uploadSubmit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+            margin-left: 25%;
+        }
+
+        #responseLabel {
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <form id="geminiForm" hx-encoding='multipart/form-data' hx-post='/upload/' hx-target="#geminiResponse"
+            method="POST" enctype="multipart/form-data" hx-disabled-elt="#uploadSubmit" hx-indicator="#spinner">
+            <label for="imageUpload">Upload Image:</label>
+            <input type="file" id="imageUpload" name="image" onchange="previewFile()"><br>
+            <img id="imgPreview" src="" width="300" height="200" alt="Image preview" />
+
+            <label for="prompt">Prompt:</label>
+            <input type="text" id="prompt" name="prompt"><br>
+
+            <button id="uploadSubmit" type="submit">
+                Send to Gemini
+                <img id="spinner" class="htmx-indicator" src="/img/dots.svg" />
+            </button>
+        </form>
+        <h3 id="responseLabel">Response from gemini: </h3>
+        <textarea id="geminiResponse" name="response" rows="4" cols="50" readonly></textarea>
+        <article id="queryHistory" hx-get="/query_history/" hx-trigger="load, newQuery from:body">
+            <h5>Previous searches:</h5>
+            <div hx-target="this" hx-swap="innerHTML"></div>
+        </article>
+    </main>
+</body>
+
+</html>
