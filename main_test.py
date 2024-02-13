@@ -48,7 +48,7 @@ def stubbed_upload_file_bytestream_fixture():
 # We don't need to make thumbnails when testing upload since we are not sending them to google storage
 @pytest.fixture(name="_stubbed_make_thumbnail")
 def stubbed_make_thumbnail_fixture():
-    """Don't actually call upload_file when testing so return a mock response instead."""
+    """Don't actually call make_thumbnail when testing so return a mock response instead."""
     with unittest.mock.patch("image_util.make_thumbnail", return_value=b"mockThumbnailBytes") as mock:
         yield mock
 
